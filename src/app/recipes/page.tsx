@@ -2,6 +2,13 @@ import { getAllRecipes } from "@/lib/recipes";
 import Link from "next/link";
 import Image from "next/image";
 
+function getSafeImageSrc(src: string | null | undefined): string {
+  if (!src || src.startsWith('http')) {
+    return '/images/placeholder.jpg'; // fallback for any bad/missing URL
+  }
+  return src;
+}
+
 const RecipesPage = async () => {
   const recipes = await getAllRecipes();
 
@@ -20,11 +27,11 @@ const RecipesPage = async () => {
               className="block border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition"
             >
                 <Image
-                    src={recipe.image || '/images/default-recipe.jpg'}
+                    src={getSafeImageSrc(recipe.image)}
                     alt={recipe.title}
-                    className="w-full h-48 object-cover"
                     width={400}
                     height={300}
+                    className="w-full h-48 object-cover"
                 />
                 <div className="p-4">
                     <h2 className="text-xl font-semibold">{recipe.title}</h2>
