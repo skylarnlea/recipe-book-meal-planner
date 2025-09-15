@@ -1,4 +1,4 @@
-// prisma/seed.ts
+// prisma/seed.js
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
@@ -28,14 +28,9 @@ async function main() {
       }
     ]
   });
-  console.log('Seed data inserted!');
+  console.log("🌱 Seed data inserted!");
 }
 
 main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+  .catch(console.error)
+  .finally(() => prisma.$disconnect());
